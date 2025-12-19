@@ -16,7 +16,7 @@ import sys
 from tqdm import tqdm
 
 
-def compress_frame(img, quality=70):
+def compress_frame(img, quality=50):
     encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), quality]
     _, encoded_img = cv2.imencode('.jpg', img, encode_param)
 
@@ -25,28 +25,99 @@ def compress_frame(img, quality=70):
     return decoded_img
 
 
-def obtain_frames(video_p, output_p, frames_num) -> None:
-    current_frame = 0
+def obtain_frames(video_p, output_p, frames_num, starting_num) -> None:
+    video_index = 0
+    current_frame = starting_num
     video_path = video_p
     output_path = output_p
 
     cap = cv2.VideoCapture(video_path)
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    frame_interval = int(total_frames/frames_num)
 
-    while(True):
+    while True:
         success, frame = cap.read()
-        current_frame += 1
-        if not success or current_frame == frames_num + 1:
+        if not success:
             break
 
-        cv2.imshow('image', frame)
+        if video_index % frame_interval == 0:
+            cv2.imshow('image', frame)
 
-        compressed_img = compress_frame(frame)
-        cv2.imwrite(f"{output_path}/frame{current_frame}.jpg", compressed_img)
+            compressed_img = compress_frame(frame)
+            cv2.imwrite(f"{output_path}/frame{int(current_frame)}.jpg", compressed_img)
 
-        print(f"Saved frame #{current_frame}")
-        cv2.waitKey(1)
+            print(f"Saved frame #{int(current_frame)}")
+            current_frame += 1
+            cv2.waitKey(1)
+
+        video_index += 1
 
     cap.release()
+
+
+def initialize_data() -> None:
+    # Training videos
+    absent_vid = "../videos/training/absent_vid.mov"
+    absent_vid2 = "../videos/training/absent_vid2.mov"
+
+    doomscroll_vid = "../videos/training/doomscroll_vid.mov"
+    doomscroll_vid2 = "../videos/training/doomscroll_vid2.mov"
+    doomscroll_vid3 = "../videos/training/doomscroll_vid3.mov"
+
+    studying_vid = "../videos/training/studying_vid.mov"
+    studying_vid2 = "../videos/training/studying_vid2.mov"
+    studying_vid3 = "../videos/training/studying_vid3.mov"
+    studying_vid4 = "../videos/training/studying_vid4.mov"
+
+    # Validation videos
+    valid_absent_vid = "../videos/validation/absent.mov"
+    valid_doomscroll_vid = "../videos/validation/doomscroll.mov"
+    valid_studying_vid = "../videos/validation/studying.mov"
+
+    # Testing videos
+    test_absent_vid = "../videos/testing/absent.mov"
+    test_doomscroll_vid = "../videos/testing/doomscroll.mov"
+    test_studying_vid = "../videos/testing/studying.mov"
+
+    # Outputs
+    train_absent_output = "../data/training/absent"
+    train_doomscroll_output = "../data/training/doomscrolling"
+    train_studying_output = "../data/training/studying"
+
+    valid_absent_output = "../data/validation/absent"
+    valid_doomscroll_output = "../data/validation/doomscrolling"
+    valid_studying_output = "../data/validation/studying"
+
+    test_absent_output = "../data/testing/absent"
+    test_doomscroll_output = "../data/testing/doomscrolling"
+    test_studying_output = "../data/testing/studying"
+
+    # Frames for training data
+    obtain_frames(absent_vid, train_absent_output, 500, 0)
+    obtain_frames(absent_vid2, train_absent_output, 500, 501)
+
+    obtain_frames(doomscroll_vid, train_doomscroll_output, 500, 0)
+    obtain_frames(doomscroll_vid2, train_doomscroll_output, 500, 501)
+    obtain_frames(doomscroll_vid3, train_doomscroll_output, 500, 1002)
+
+    obtain_frames(studying_vid, train_studying_output, 500, 0)
+    obtain_frames(studying_vid2, train_studying_output, 500, 501)
+    obtain_frames(studying_vid3, train_studying_output, 500, 1002)
+    obtain_frames(studying_vid4, train_studying_output, 500, 1503)
+
+    # Frames for validation data
+    obtain_frames(valid_absent_vid, valid_absent_output, 600, 0)
+    obtain_frames(valid_doomscroll_vid, valid_doomscroll_output, 600, 0)
+    obtain_frames(valid_studying_vid, valid_studying_output, 600, 0)
+
+    # Frames for testing data
+    obtain_frames(test_absent_vid, test_absent_output, 10, 0)
+    obtain_frames(test_doomscroll_vid, test_doomscroll_output, 10, 0)
+    obtain_frames(test_studying_vid, test_studying_output, 10, 0)
+
+
+# initialize_data()
+
 
 class VideoDataset(Dataset):
     def __init__(self, data_dir, transform=None):
@@ -64,7 +135,7 @@ class VideoDataset(Dataset):
 
 
 class StudyHabitClassifier(nn.Module):
-    def __init__(self, num_classes=53):
+    def __init__(self, num_classes=3):
         super().__init__()
         self.base_model = timm.create_model('efficientnet_b0', pretrained=True)
         self.features = nn.Sequential(*list(self.base_model.children())[:-1])
@@ -81,20 +152,26 @@ class StudyHabitClassifier(nn.Module):
         return output
 
 
+# Transformations
 transform = transforms.Compose([
-    transforms.Resize((128, 128)),
+    transforms.RandomHorizontalFlip(p=0.5),
+    transforms.ColorJitter(brightness=0.3, contrast=0.2, saturation=0.2),
+    transforms.RandomResizedCrop(size=128, scale=(0.08, 1.0)),
     transforms.ToTensor(),
+    transforms.RandomErasing(p=0.5, scale=(0.1, 0.1))
 ])
 
-data_folder = "../data"
-full_dataset = VideoDataset(data_folder, transform)
-dataset_size = len(full_dataset)
-lengths = [int(0.8 * dataset_size), int(0.2 * dataset_size)]
+train_folder = "../data/training"
+valid_folder = "../data/validation"
+test_folder = "../data/testing"
 
-train_dataset, valid_dataset = random_split(full_dataset, lengths)
+train_dataset = VideoDataset(train_folder, transform)
+valid_dataset = VideoDataset(valid_folder, transform)
+test_dataset = VideoDataset(test_folder, transform)
 
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 valid_loader = DataLoader(valid_dataset, batch_size=32, shuffle=False)
+test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
 num_epoch = 5
 train_losses, val_losses = [], []
@@ -102,7 +179,7 @@ train_losses, val_losses = [], []
 device = torch.device("mps")
 print(device)
 
-model = StudyHabitClassifier(num_classes=2)
+model = StudyHabitClassifier(num_classes=3)
 model.to(device)
 
 criterion = nn.CrossEntropyLoss()
@@ -137,6 +214,13 @@ for epoch in tqdm(range(num_epoch), desc="Overall Training Loop"):
 
     print(f"Epoch {epoch + 1}/{num_epoch} - Train Loss: {train_loss} - Validation Loss: {val_loss}")
 
+# Plot a graph of the losses
+plt.plot(train_losses, label='Training loss')
+plt.plot(val_losses, label='Validation loss')
+plt.legend()
+plt.title("Loss across epochs")
+plt.show()
+
 
 def visualize_predictions(model, loader, num_images=12):
     model.eval()
@@ -149,6 +233,7 @@ def visualize_predictions(model, loader, num_images=12):
             labels = labels.to(device)
 
             outputs = model(inputs)
+            print(outputs)
 
             _, preds = torch.max(outputs, 1)
 
@@ -158,8 +243,8 @@ def visualize_predictions(model, loader, num_images=12):
                 ax = plt.subplot(num_images // 3, 3, images_so_far)
                 ax.axis('off')
 
-                predicted_class = full_dataset.classes[preds[j]]
-                actual_class = full_dataset.classes[labels[j]]
+                predicted_class = test_dataset.classes[preds[j]]
+                actual_class = test_dataset.classes[labels[j]]
 
                 color = 'green' if predicted_class == actual_class else 'red'
                 ax.set_title(f'Predicted: {predicted_class}\nActual: {actual_class}', color=color)
@@ -170,4 +255,5 @@ def visualize_predictions(model, loader, num_images=12):
                     plt.show()
                     return
 
-visualize_predictions(model, train_loader)
+
+visualize_predictions(model, test_loader)
