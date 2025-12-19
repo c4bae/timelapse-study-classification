@@ -57,40 +57,40 @@ def obtain_frames(video_p, output_p, frames_num, starting_num) -> None:
 
 def initialize_data() -> None:
     # Training videos
-    absent_vid = "../videos/training/absent_vid.mov"
-    absent_vid2 = "../videos/training/absent_vid2.mov"
+    absent_vid = "videos/training/absent_vid.mov"
+    absent_vid2 = "videos/training/absent_vid2.mov"
 
-    doomscroll_vid = "../videos/training/doomscroll_vid.mov"
-    doomscroll_vid2 = "../videos/training/doomscroll_vid2.mov"
-    doomscroll_vid3 = "../videos/training/doomscroll_vid3.mov"
+    doomscroll_vid = "videos/training/doomscroll_vid.mov"
+    doomscroll_vid2 = "videos/training/doomscroll_vid2.mov"
+    doomscroll_vid3 = "videos/training/doomscroll_vid3.mov"
 
-    studying_vid = "../videos/training/studying_vid.mov"
-    studying_vid2 = "../videos/training/studying_vid2.mov"
-    studying_vid3 = "../videos/training/studying_vid3.mov"
-    studying_vid4 = "../videos/training/studying_vid4.mov"
+    studying_vid = "videos/training/studying_vid.mov"
+    studying_vid2 = "videos/training/studying_vid2.mov"
+    studying_vid3 = "videos/training/studying_vid3.mov"
+    studying_vid4 = "videos/training/studying_vid4.mov"
 
     # Validation videos
-    valid_absent_vid = "../videos/validation/absent.mov"
-    valid_doomscroll_vid = "../videos/validation/doomscroll.mov"
-    valid_studying_vid = "../videos/validation/studying.mov"
+    valid_absent_vid = "videos/validation/absent.mov"
+    valid_doomscroll_vid = "videos/validation/doomscroll.mov"
+    valid_studying_vid = "videos/validation/studying.mov"
 
     # Testing videos
-    test_absent_vid = "../videos/testing/absent.mov"
-    test_doomscroll_vid = "../videos/testing/doomscroll.mov"
-    test_studying_vid = "../videos/testing/studying.mov"
+    test_absent_vid = "videos/testing/absent.mov"
+    test_doomscroll_vid = "videos/testing/doomscroll.mov"
+    test_studying_vid = "videos/testing/studying.mov"
 
     # Outputs
-    train_absent_output = "../data/training/absent"
-    train_doomscroll_output = "../data/training/doomscrolling"
-    train_studying_output = "../data/training/studying"
+    train_absent_output = "data/training/absent"
+    train_doomscroll_output = "data/training/doomscrolling"
+    train_studying_output = "data/training/studying"
 
-    valid_absent_output = "../data/validation/absent"
-    valid_doomscroll_output = "../data/validation/doomscrolling"
-    valid_studying_output = "../data/validation/studying"
+    valid_absent_output = "data/validation/absent"
+    valid_doomscroll_output = "data/validation/doomscrolling"
+    valid_studying_output = "data/validation/studying"
 
-    test_absent_output = "../data/testing/absent"
-    test_doomscroll_output = "../data/testing/doomscrolling"
-    test_studying_output = "../data/testing/studying"
+    test_absent_output = "data/testing/absent"
+    test_doomscroll_output = "data/testing/doomscrolling"
+    test_studying_output = "data/testing/studying"
 
     # Frames for training data
     obtain_frames(absent_vid, train_absent_output, 500, 0)
@@ -161,9 +161,9 @@ transform = transforms.Compose([
     transforms.RandomErasing(p=0.5, scale=(0.1, 0.1))
 ])
 
-train_folder = "../data/training"
-valid_folder = "../data/validation"
-test_folder = "../data/testing"
+train_folder = "data/training"
+valid_folder = "data/validation"
+test_folder = "data/testing"
 
 train_dataset = VideoDataset(train_folder, transform)
 valid_dataset = VideoDataset(valid_folder, transform)
