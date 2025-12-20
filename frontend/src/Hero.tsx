@@ -2,6 +2,7 @@ import './globals.css'
 import StreamlineFreehandCameraModePhoto from './components/StreamlineFreehandCameraModePhoto'
 import Border from './components/Border'
 import NavBar from './components/NavBar'
+import { Link } from 'react-router'
 
 function Hero() {
     return (
@@ -9,7 +10,7 @@ function Hero() {
             <Border></Border>
             <NavBar></NavBar>
             <div className="self-center flex flex-col justify-center text-center w-full">
-                <h2 className="w-full self-center text-4xl md:text-5xl font-[DM_Sans] lg:text-6xl font-semibold text-neutral-300 max-w-7xl relative z-20 py-6">
+                <h2 className="w-full self-center text-4xl md:text-5xl font-[DM_Sans] lg:text-6xl font-semibold text-neutral-200 max-w-7xl relative z-20 py-6">
                     Study <p className="font-[DM_Serif] inline font-light text-5xl md:text-6xl lg:text-8xl">smarter</p> at warp speed
                 </h2>
 
@@ -17,12 +18,12 @@ function Hero() {
                 <StreamlineFreehandCameraModePhoto className="z-50 w-1/2 fixed self-center mt-120"></StreamlineFreehandCameraModePhoto>
             </div>
             <div className="z-50 fixed mb-30 self-end flex gap-70">
-                <button className="font-[DM_Sans] shadow-[0_0_0_3px_#e6e6e6_inset] px-7 py-3 bg-black/30 border border-white dark:border-white dark:text-white text-xl text-neutral-300 rounded-lg font-semibold transform hover:-translate-y-1 transition duration-400">
+                <Link to="/sign-up" className="font-[DM_Sans] shadow-[0_0_0_3px_#e6e6e6_inset] px-7 py-3 bg-black/30 dark:border-white dark:text-white text-xl text-neutral-300 rounded-lg font-medium transform hover:-translate-y-1 transition duration-400">
                     Sign Up
-                </button>
-                <button className="font-[DM_Sans] shadow-[0_0_0_3px_#e6e6e6_inset] px-7 py-3 bg-black/30 border border-white dark:border-white dark:text-white text-xl text-neutral-300 rounded-lg font-semibold transform hover:-translate-y-1 transition duration-400">
+                </Link>
+                <Link to="/login" className="font-[DM_Sans] shadow-[0_0_0_3px_#e6e6e6_inset] px-7 py-3 bg-black/30 dark:border-white dark:text-white text-xl text-neutral-300 rounded-lg font-medium transform hover:-translate-y-1 transition duration-400">
                     Login
-                </button>
+                </Link>
             </div>
         </div>
     )

@@ -3,8 +3,8 @@ import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react'
 
 function Background() {
     return (
-        <div className="fixed w-full h-full inset-0">
-            <div className="absolute inset-0 z-0">
+        <div className="fixed w-full h-full inset-0 -z-1">
+            <div className="absolute inset-0">
                 <ShaderGradientCanvas className="w-full h-full pointer-events-none">
                     <ShaderGradient
                         animate="on"
