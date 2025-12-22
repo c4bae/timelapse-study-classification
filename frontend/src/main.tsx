@@ -1,20 +1,20 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import Hero from './Hero.tsx'
-import Background from './Background.tsx'
-import SignUp from './Signup.tsx'
-import { BrowserRouter, Routes, Route} from 'react-router'
+import App from './App'
+import { ClerkProvider } from '@clerk/clerk-react'
+
+// Import the Clerk Publishable Key
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) throw new Error("Missing Clerk Publishable Key")
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Background></Background>
-    
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Hero />}></Route>
-        <Route path="/sign-up" element={<SignUp />}></Route>
-        <Route path="/login"></Route>
-      </Routes>
-    </BrowserRouter>
+    <ClerkProvider
+      publishableKey={PUBLISHABLE_KEY}
+      appearance={{cssLayerName: 'clerk'}}
+    >
+      <App />
+    </ClerkProvider>
   </StrictMode>
 )

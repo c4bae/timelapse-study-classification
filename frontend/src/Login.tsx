@@ -1,19 +1,19 @@
-import { SignUp } from "@clerk/clerk-react"
+import { SignIn } from "@clerk/clerk-react"
 
-function SignUpForm() {
-   return (
+function SignInForm() {
+    return (
         <div className="flex justify-center items-center h-full w-full">
-            <SignUp
+            <SignIn
                 appearance={{
                     variables: {
                         fontFamily: 'DM Sans'
                     }
                 }}
-                signInUrl='/login'
+                signUpUrl='/sign-up'
             >
-            </SignUp>
+            </SignIn>
         </div>
     )
 }
 
-export default SignUpForm
+export default SignInForm
