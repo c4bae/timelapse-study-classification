@@ -4,14 +4,15 @@ import SignUpForm from './Signup.tsx'
 import SignInForm from './Login.tsx'
 import DropZonePage from './dropzone.tsx'
 import { BrowserRouter, Routes, Route} from 'react-router'
+import { Dashboard } from './Dashboard.tsx'
+import Demo from './components/UserStats.tsx'
 import './globals.css'
 
 function App() {
     return (
         <>
-            <DropZonePage></DropZonePage>
-            <Background></Background>
-        
+            {/* <Background></Background> */}
+            <Dashboard />
             {/* <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Hero />}></Route>
