@@ -14,34 +14,36 @@ import { cn } from "./lib/utils";
 import UserStats from "./components/UserStats";
 import List from "./components/List";
 import BarGraph from "./components/BarGraph";
-import VideosPage from "./components/Videos"
- 
+import VideosPage from "./Videos"
+import { Routes, Route } from "react-router";
+import SettingsPage from "./Settings"; 
+
 export function Dashboard() {
   const links = [
     {
       label: "Dashboard",
-      href: "#",
+      href: "/dashboard",
       icon: (
         <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
       label: "Videos",
-      href: "#",
+      href: "/dashboard/videos",
       icon: (
         <IconVideo className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
       label: "Settings",
-      href: "#",
+      href: "/dashboard/settings",
       icon: (
         <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
       label: "Logout",
-      href: "",
+      href: "/",
       icon: (
         <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
@@ -55,7 +57,7 @@ export function Dashboard() {
         "h-full", // for your use case, use `h-screen` instead of `h-[60vh]`
       )}
     >
-      <Sidebar open={open} setOpen={setOpen} animate={false}>
+      <Sidebar open={open} setOpen={setOpen} animate={true}>
         <SidebarBody className="justify-between gap-10 pl-5 bg-base-100">
           <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
             <Logo />
@@ -69,8 +71,8 @@ export function Dashboard() {
             <SidebarLink
               className="font-[DM_Sans] font-bold"
               link={{
-                label: "Manu Arora",
-                href: "#",
+                label: "FULL_NAME",
+                href: "/dashboard/settings",
                 icon: (
                   <img
                     src={accicon}
@@ -85,19 +87,23 @@ export function Dashboard() {
           </div>
         </SidebarBody>
       </Sidebar>
-      {/* <DashboardSection /> */}
-      <VideosPage></VideosPage>
+
+        <Routes>
+            <Route index element={<DashboardSection />}></Route>
+            <Route path="videos" element={<VideosPage />}></Route>
+            <Route path="settings" element={<SettingsPage />}></Route>
+        </Routes>
     </div>
   );
 }
 export const Logo = () => {
   return (
     <a
-      href="#"
+      href="/dashboard"
       className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black"
     >
-      <StreamlineFreehandCameraModePhoto className="h-10 w-10 shrink-0 stroke-black"></StreamlineFreehandCameraModePhoto>
-      <div className="font-bold text-3xl font-[DM_Sans] whitespace-pre text-black dark:text-white">StudyLapse</div>
+      <StreamlineFreehandCameraModePhoto className="h-5 w-5 shrink-0 stroke-neutral-700"></StreamlineFreehandCameraModePhoto>
+      <div className="font-bold text-2xl font-[DM_Sans] whitespace-pre text-neutral-700 dark:text-white">StudyLapse</div>
     </a>
   );
 };

@@ -10,6 +10,7 @@ function SignInForm() {
                     }
                 }}
                 signUpUrl='/sign-up'
+                forceRedirectUrl={"/dashboard"}
             >
             </SignIn>
         </div>

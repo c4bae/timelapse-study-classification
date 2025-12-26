@@ -14,7 +14,7 @@ createRoot(document.getElementById('root')!).render(
       publishableKey={PUBLISHABLE_KEY}
       appearance={{cssLayerName: 'clerk'}}
     >
-      <App />
+        <App />
     </ClerkProvider>
   </StrictMode>
 )
