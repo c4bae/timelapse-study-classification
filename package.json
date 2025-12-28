@@ -16,6 +16,7 @@
     "@radix-ui/react-label": "^2.1.8",
     "@react-three/fiber": "^9.4.2",
     "@shadergradient/react": "^2.4.20",
+    "@supabase/supabase-js": "^2.89.0",
     "@tabler/icons-react": "^3.36.0",
     "@tailwindcss/vite": "^4.1.18",
     "@tsparticles/engine": "^3.9.1",
