@@ -1,19 +1,18 @@
 "use client";
 import React, { useState } from "react";
-import { Sidebar, SidebarBody, SidebarLink } from "./components/ui/sidebar";
-import accicon from "./assets/accicon.png"
+import { Sidebar, SidebarBody, SidebarLink } from "../components/ui/sidebar";
+import accicon from "../assets/accicon.png";
 import {
   IconArrowLeft,
   IconBrandTabler,
   IconSettings,
-  IconUserBolt,
   IconVideo,
 } from "@tabler/icons-react";
-import StreamlineFreehandCameraModePhoto from './components/StreamlineFreehandCameraModePhoto'
-import { cn } from "./lib/utils";
-import UserStats from "./components/UserStats";
-import List from "./components/List";
-import BarGraph from "./components/BarGraph";
+import StreamlineFreehandCameraModePhoto from '../components/ui/cameraIcon'
+import { cn } from "../lib/utils";
+import UserStats from "../components/UserStats";
+import List from "../components/List";
+import BarGraph from "../components/BarGraph";
 import VideosPage from "./Videos"
 import { Routes, Route } from "react-router";
 import SettingsPage from "./Settings"; 

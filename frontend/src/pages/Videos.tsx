@@ -1,5 +1,5 @@
-import ExpandableCardDemo from "./components/ui/videos-grid"
-import DropZonePage from "./dropzone"
+import ExpandableCardDemo from "../components/ui/videos-grid"
+import DropZonePage from "../components/Dropzone"
 
 function VideosPage() {
     return (

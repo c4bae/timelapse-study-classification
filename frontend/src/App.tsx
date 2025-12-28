@@ -1,9 +1,9 @@
-import Hero from './Hero.tsx'
-import Background from './Background.tsx'
-import SignUpForm from './Signup.tsx'
-import SignInForm from './Login.tsx'
+import Hero from './pages/Hero.tsx'
+import Background from './components/ui/background.tsx'
+import SignUpForm from './pages/Signup.tsx'
+import SignInForm from './pages/Login.tsx'
 import { BrowserRouter, Routes, Route} from 'react-router'
-import { Dashboard } from './Dashboard.tsx'
+import { Dashboard } from './pages/Dashboard.tsx'
 import './globals.css'
 
 function App() {

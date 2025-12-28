@@ -1,7 +1,7 @@
-import './globals.css'
-import StreamlineFreehandCameraModePhoto from './components/StreamlineFreehandCameraModePhoto'
-import Border from './components/Border'
-import NavBar from './components/NavBar'
+import '../globals.css'
+import StreamlineFreehandCameraModePhoto from '../components/ui/cameraIcon'
+import Border from '../components/ui/border.tsx'
+import NavBar from '../components/ui/NavBar.tsx'
 import { Link } from 'react-router'
 
 function Hero() {

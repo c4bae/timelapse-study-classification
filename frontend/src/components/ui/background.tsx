@@ -1,4 +1,4 @@
-import DotGrid from "./components/DotGrid.tsx"
+import DotGrid from "./dotGrid.tsx"
 import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react'
 
 function Background() {
