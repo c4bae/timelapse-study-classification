@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../components/ui/sidebar";
 import accicon from "../assets/accicon.png";
 import {
@@ -7,6 +7,7 @@ import {
   IconBrandTabler,
   IconSettings,
   IconVideo,
+  IconPencil,
 } from "@tabler/icons-react";
 import StreamlineFreehandCameraModePhoto from '../components/ui/cameraIcon'
 import { cn } from "../lib/utils";
@@ -16,8 +17,13 @@ import BarGraph from "../components/BarGraph";
 import VideosPage from "./Videos"
 import { Routes, Route } from "react-router";
 import SettingsPage from "./Settings"; 
+import { useUser } from "@clerk/clerk-react";
+import ProtectedRoute from "../components/ProtectedRoute";
+import { useNavigate } from "react-router";
 
 export function Dashboard() {
+  const { user, isLoaded, isSignedIn} = useUser()
+
   const links = [
     {
       label: "Dashboard",
@@ -31,6 +37,13 @@ export function Dashboard() {
       href: "/dashboard/videos",
       icon: (
         <IconVideo className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+    {
+      label: "Exams",
+      href: "/dashboard/exams",
+      icon: (
+        <IconPencil className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
@@ -49,6 +62,7 @@ export function Dashboard() {
     },
   ];
   const [open, setOpen] = useState(false);
+
   return (
     <div
       className={cn(
@@ -67,31 +81,33 @@ export function Dashboard() {
             </div>
           </div>
           <div>
-            <SidebarLink
+            { isLoaded && isSignedIn && <SidebarLink
               className="font-[DM_Sans] font-bold"
               link={{
-                label: "FULL_NAME",
+                label: user!.fullName,
                 href: "/dashboard/settings",
                 icon: (
                   <img
                     src={accicon}
-                    className="h-7 w-7 shrink-0 rounded-full"
+                    className="h-6 w-7 shrink-0 rounded-full"
                     width={50}
                     height={50}
                     alt="Avatar"
                   />
                 ),
               }}
-            />
+            />}
           </div>
         </SidebarBody>
       </Sidebar>
 
+      <ProtectedRoute>
         <Routes>
             <Route index element={<DashboardSection />}></Route>
             <Route path="videos" element={<VideosPage />}></Route>
             <Route path="settings" element={<SettingsPage />}></Route>
         </Routes>
+      </ProtectedRoute>
     </div>
   );
 }
@@ -119,12 +135,14 @@ export const LogoIcon = () => {
  
 // Dummy dashboard component with content
 const DashboardSection = () => {
+  const { user, isLoaded } = useUser()
+
   return (
     <div className="flex flex-1">
       <div className="relative flex h-full w-full flex-1 flex-col gap-2 rounded-tl-2xl border border-neutral-200 bg-white p-2 md:p-8 dark:border-neutral-700 dark:bg-neutral-900">
         <div className="relative flex flex-col gap-3">
           <div className="flex-2">
-            <BarGraph />
+            { isLoaded ? <BarGraph fullName={user!.fullName} /> : <BarGraph fullName="..." />}
           </div>
           <div className="flex gap-3">
             <UserStats />

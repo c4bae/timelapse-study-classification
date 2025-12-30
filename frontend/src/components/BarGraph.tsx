@@ -34,11 +34,11 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export default function BarGraph() {
+export default function BarGraph({ fullName }) {
   return (
     <Card className="border-transparent bg-base-100 font-[DM_Sans]">
       <CardHeader>
-        <CardTitle className="font-bold text-3xl">Welcome back, FIRST_NAME</CardTitle>
+        <CardTitle className="font-bold text-3xl">Welcome back, {fullName}</CardTitle>
         <CardDescription>Here's how your study habits are showing up for this week:</CardDescription>
       </CardHeader>
       <CardContent>
