@@ -3,6 +3,7 @@ import { cn } from "../../lib/utils";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { IconMenu2, IconX } from "@tabler/icons-react";
+import { useClerk } from "@clerk/clerk-react";
 
 interface Links {
   label: string;
@@ -163,6 +164,34 @@ export const SidebarLink = ({
   className?: string;
 }) => {
   const { open, animate } = useSidebar();
+  const { signOut } = useClerk()
+
+  if (link.label == "Logout") {
+      return (
+        <a
+        href={link.href}
+        onClick={() => {signOut({ redirectUrl: '/'})}}
+        className={cn(
+          "flex items-center justify-start gap-2  group/sidebar py-2",
+          className
+        )}
+        {...props}
+      >
+        {link.icon}
+
+        <motion.span
+          animate={{
+            display: animate ? (open ? "inline-block" : "none") : "inline-block",
+            opacity: animate ? (open ? 1 : 0) : 1,
+          }}
+          className="text-neutral-700 dark:text-neutral-200 text-md font-medium group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        >
+          {link.label}
+        </motion.span>
+      </a>
+    )
+  }
+
   return (
     <a
       href={link.href}
