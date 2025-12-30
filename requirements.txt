@@ -7,3 +7,4 @@ pandas>=2.3.3
 numpy>=2.3.5
 tqdm>=4.67.1
 transformers>=5.0.0rc1
+fastapi>=0.128.0
