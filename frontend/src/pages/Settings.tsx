@@ -81,7 +81,7 @@ function SettingsPage() {
             <div className="relative flex h-full w-full flex-1 flex-col gap-2 rounded-tl-2xl border border-neutral-200 bg-white p-2 md:p-8 dark:border-neutral-700 dark:bg-neutral-900">
                 <div className="bg-base-100 h-full shadow rounded-lg">
                     <div className="p-7 ml-2">
-                        <h1 className="font-[DM_Sans] text-4xl">Settings </h1>
+                        <h1 className="font-[DM_Sans] font-semibold text-4xl text-neutral-800">Settings </h1>
                         <form className="mt-10 flex flex-col gap-10" onSubmit={handleSubmit} id="settings">
                             <div>
                                 <h1 className="font-[DM_Sans]">Basic Info</h1>
@@ -89,19 +89,19 @@ function SettingsPage() {
                                 <div className="flex flex-col gap-5">
                                     <fieldset className="fieldset">
                                         <div className="flex ">
-                                            <legend className="fieldset-legend text-lg">First Name</legend>
+                                            <legend className="fieldset-legend text-lg text-neutral-800">First Name</legend>
                                             <input type="text" className="input ml-49" placeholder="Type here" value={firstName} onChange={(e) => {setFirstName(e.target.value)}} />
                                         </div>
                                     </fieldset>
                                     <fieldset className="fieldset">
                                         <div className="flex ">
-                                            <legend className="fieldset-legend text-lg">Last Name</legend>
+                                            <legend className="fieldset-legend text-lg text-neutral-800">Last Name</legend>
                                             <input type="text" className="input ml-49" placeholder="Type here" value={lastName} onChange={(e) => {setLastName(e.target.value)}} />
                                         </div>
                                     </fieldset>
                                     <fieldset className="fieldset">
                                         <div className="flex ">
-                                            <legend className="fieldset-legend text-lg">Email Address</legend>
+                                            <legend className="fieldset-legend text-lg text-neutral-800">Email Address</legend>
                                             <input type="text" className="input ml-42" placeholder="Type here" value={email} disabled />
                                         </div>
                                     </fieldset>
@@ -114,7 +114,7 @@ function SettingsPage() {
                                 <div className="flex flex-col gap-5">
                                     <fieldset className="fieldset">
                                         <div className="flex gap-12">
-                                            <legend className="fieldset-legend text-lg">Analysis Preference</legend>
+                                            <legend className="fieldset-legend text-lg text-neutral-800">Analysis Preference</legend>
                                             <select className="select ml-17" value={modelOption} onChange={(e) => {setModelOption(e.target.value)}}>
                                                 <option disabled={true}>Select model optimization:</option>
                                                 <option>Fast</option>
@@ -130,7 +130,7 @@ function SettingsPage() {
                             </div>
                         </form>
                         <div className="flex justify-end">
-                            {isLoaded && <button className={`btn btn-xl justify-self-end mr-5 btn transition-colors duration-200 ${saved ? 'btn btn-xl justify-self-end mr-5 bg-green-300 border-neutral-200' : ''}`} form="settings" type="submit">{saved ? "Saved!" : "Save Changes"}</button>}
+                            {isLoaded && <button className={`btn btn-xl justify-self-end mr-5 btn transition-colors duration-200 text-neutral-800 ${saved ? 'btn btn-xl justify-self-end mr-5 bg-green-300 border-neutral-200 text-neutral-800' : ''}`} form="settings" type="submit">{saved ? "Saved!" : "Save Changes"}</button>}
                         </div>
                     </div>
                 </div>

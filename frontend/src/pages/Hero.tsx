@@ -18,10 +18,10 @@ function Hero() {
                 <StreamlineFreehandCameraModePhoto className="z-50 w-1/2 fixed self-center mt-120"></StreamlineFreehandCameraModePhoto>
             </div>
             <div className="z-50 fixed mb-30 self-end flex gap-70">
-                <Link to="/sign-up" className="font-[DM_Sans] shadow-[0_0_0_3px_#e6e6e6_inset] px-7 py-3 bg-black/30 dark:border-white dark:text-white text-xl text-neutral-300 rounded-lg font-medium transform hover:-translate-y-1 transition duration-400">
+                <Link to="/sign-up" className="font-[DM_Sans] shadow-[0_0_0_2px_#e6e6e6_inset] px-7 py-3 backdrop-blur-lg dark:text-white text-xl text-neutral-300 rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
                     Sign Up
                 </Link>
-                <Link to="/login" className="font-[DM_Sans] shadow-[0_0_0_3px_#e6e6e6_inset] px-7 py-3 bg-black/30 dark:border-white dark:text-white text-xl text-neutral-300 rounded-lg font-medium transform hover:-translate-y-1 transition duration-400">
+                <Link to="/login" className="font-[DM_Sans] shadow-[0_0_0_2px_#e6e6e6_inset] px-7 py-3 backdrop-blur-lg dark:text-white text-xl text-neutral-300 rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
                     Login
                 </Link>
             </div>
