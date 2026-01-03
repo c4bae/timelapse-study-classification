@@ -8,7 +8,7 @@ function DropZonePage() {
     const onDrop = useCallback( async (acceptedFile: File[]) => {
         if (user) {
             const formData = new FormData()
-            formData.append('id', user?.id)
+            formData.append('user_id', user?.id)
             formData.append('payload', acceptedFile[0])
 
             const response = await fetch("/api/upload", {
