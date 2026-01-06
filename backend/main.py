@@ -152,13 +152,7 @@ def test_model(model, loader, dataset, frames_timestamps):
     return phone_img_num, phone_timestamps
 
 
-class video_data(BaseModel):
-    user_id: str
-    video_name: str
-    class_name: Optional[str] = None
-
-
-def process_video(user_id, video_name, class_name=None):
+def process_video(user_id, video_name):
     video_path = Path(f"./user_videos/{user_id}/{video_name}/frames")
     video_path.mkdir(parents=True, exist_ok=True)
     bucket.download_file(f"{user_id}/{video_name}", f"./user_videos/{user_id}/{video_name}/{video_name}")
@@ -183,7 +177,7 @@ def process_video(user_id, video_name, class_name=None):
     try:
         response = (
             supabase.table("user_videos")
-            .insert({"user_id": user_id, "video_name": video_name, "duration": video_duration, "focus_percentage": focus_rate, "absent_percentage": absent_rate, "phone_percentage": phone_rate, "absent_timestamps": absence_timestamps, "phone_timestamps": phone_timestamps, "class_name": class_name})
+            .insert({"user_id": user_id, "video_name": video_name, "duration": video_duration, "focus_percentage": focus_rate, "absent_percentage": absent_rate, "phone_percentage": phone_rate, "absent_timestamps": absence_timestamps, "phone_timestamps": phone_timestamps})
             .execute()
         )
 
@@ -221,7 +215,7 @@ def process_video(user_id, video_name, class_name=None):
 
 
 @app.post("/api/process")
-def analyze_video(video_data: video_data, background_tasks: BackgroundTasks):
-    background_tasks.add_task(process_video, video_data.user_id, video_data.video_name, video_data.class_name)
+def analyze_video(video_data, background_tasks: BackgroundTasks):
+    background_tasks.add_task(process_video, video_data.user_id, video_data.video_name)
 
     return "Payload received"
