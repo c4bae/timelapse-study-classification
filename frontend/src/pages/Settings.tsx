@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
-import supabase from "../config/supabaseClient"
 import { useUser, useReverification, UserProfile } from "@clerk/clerk-react"
-
+import createClerkSupabaseClient from "../config/supabaseClient"
 
 function SettingsPage() {
     const { user, isLoaded } = useUser()
@@ -13,6 +12,8 @@ function SettingsPage() {
     const [settingsError, setSettingsError] = useState<string | null>(null)
 
     const [saved, setSaved] = useState(false);
+
+    const supabase = createClerkSupabaseClient()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,8 +36,11 @@ function SettingsPage() {
             }
         }
 
-        fetchData()
-    }, [])
+        if (isLoaded) {
+            fetchData()
+        }
+        
+    }, [isLoaded])
 
     const changeUserInfo = useReverification(async () => {
         if (!user) return null

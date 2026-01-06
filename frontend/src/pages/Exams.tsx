@@ -5,9 +5,8 @@ import {
   FileText, ChevronRight, X, Calendar, Clock, BookOpen, AlertCircle, Check, 
   Calculator
 } from "lucide-react";
-import supabase from "../config/supabaseClient"
+import createClerkSupabaseClient from "../config/supabaseClient"
 import { useUser } from "@clerk/clerk-react";
-
 
 const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, itemName }: { isOpen: boolean; onClose: () => void; onConfirm: () => void; itemName: string; }) => {
   return (
@@ -35,7 +34,8 @@ const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, itemName }: { isOpen: 
 
 const ExamModal = ({ isOpen, onClose, mode, initialData, onSave }: { isOpen: boolean; onClose: () => void; mode: "add" | "edit"; initialData?: any; onSave: (data: any) => void; }) => {
   const [formData, setFormData] = useState({ exam_name: "", exam_date: "", exam_time: "" });
-  
+  const supabase = createClerkSupabaseClient()
+
   useEffect(() => {
     if (mode === "edit" && initialData) {
       setFormData({ exam_name: initialData.exam_name, exam_date: initialData.exam_date, exam_time: initialData.exam_time });
@@ -98,6 +98,8 @@ const ExamModal = ({ isOpen, onClose, mode, initialData, onSave }: { isOpen: boo
 
 const ExamsPage = () => {
   const { user, isLoaded } = useUser()
+  const supabase = createClerkSupabaseClient()
+  
   interface exam {
     id: number,
     exam_name: string,
