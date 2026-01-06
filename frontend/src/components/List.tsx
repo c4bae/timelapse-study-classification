@@ -1,4 +1,4 @@
-import supabase from "../config/supabaseClient"
+import createClerkSupabaseClient from "../config/supabaseClient"
 import { useState, useEffect } from "react"
 import { useUser } from "@clerk/clerk-react"
 
@@ -11,6 +11,8 @@ export default function List() {
     const [exams, setExams] = useState<exam[]>([])
     const { user, isLoaded } = useUser()
 
+    const supabase = createClerkSupabaseClient()
+    
     useEffect(() => {
         const fetchExams = async () => {
             const { data, error } = await supabase
