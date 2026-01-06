@@ -155,7 +155,6 @@ def train_model():
 
     train_folder = "data/training"
     valid_folder = "data/validation"
-    test_folder = "data/testing"
 
     train_dataset = VideoDataset(train_folder, transform)
     valid_dataset = VideoDataset(valid_folder, transform)
@@ -193,11 +192,12 @@ def train_model():
         val_losses.append(val_loss)
 
         print(f"Epoch {epoch + 1}/{num_epoch} - Train Loss: {train_loss} - Validation Loss: {val_loss}")
-
+    
 
 # Plot a graph of the losses
-plt.plot(train_losses, label='Training loss')
-plt.plot(val_losses, label='Validation loss')
-plt.legend()
-plt.title("Loss across epochs")
-plt.show()
+# plt.plot(train_losses, label='Training loss')
+# plt.plot(val_losses, label='Validation loss')
+# plt.legend()
+# plt.title("Loss across epochs")
+# plt.show()
+
