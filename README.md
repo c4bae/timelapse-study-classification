@@ -2,7 +2,19 @@
 
 <p align="center">
   <kbd>
-    <img width="1437" height="745" alt="PreviewImage" src="https://via.placeholder.com/1437x745?text=StudyLapse+Preview" />
+    <img width="1469" height="745" alt="Screenshot 2026-01-06 at 5 03 44 PM" src="https://github.com/user-attachments/assets/b02eae10-f28e-478e-a612-d34ddb0c6e4f" />
+  </kbd>
+</p>
+
+<p align="center">
+  <kbd>
+    <img width="1460" height="745" alt="Screenshot 2026-01-06 at 9 18 31 PM" src="https://github.com/user-attachments/assets/6b0082d6-5d92-4d06-a8f9-0582aa217728" />
+  </kbd>
+</p>
+
+<p align="center">
+  <kbd>
+    <img width="581" height="745" alt="Screenshot 2026-01-06 at 9 16 14 PM" src="https://github.com/user-attachments/assets/565cbcca-df0c-47f2-9d80-2c6e9d21893e" />
   </kbd>
 </p>
 
@@ -104,7 +116,6 @@ backend/
 - **Input:** Preprocessed video frames (256x256, normalized)
 - **Output:** Binary classification (0 = phone usage, 1 = studying)
 - **Training:** Custom dataset with labeled frames of studying vs. phone usage
-- **Model File:** `backend/models/timelapse_model.pth`
 
 ### Processing Pipeline
 1. **Frame Extraction:** Extract every 8th frame from video with exact timestamps
@@ -166,7 +177,6 @@ backend/
 6. **Phone Detection:** Custom PyTorch model classifies phone usage in remaining frames
 7. **Timestamp Mapping:** Each detection mapped to exact video timestamp
 8. **Database Update:** Results stored in Supabase with percentages and timestamp arrays
-9. **Cleanup:** Temporary files removed after processing
 
 ---
 
