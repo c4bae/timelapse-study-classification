@@ -88,6 +88,7 @@ app.post('/api/upload', upload.array('payload', 1), async (req, res) => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(body),
     })
+
     res.send("Uploaded successfully")
 })
 

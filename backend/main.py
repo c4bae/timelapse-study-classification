@@ -211,11 +211,15 @@ def process_video(user_id, video_name):
     
     except Exception as e:
         print(e)
-    
+
+
+class Video(BaseModel):
+    user_id: str
+    video_name: str
 
 
 @app.post("/api/process")
-def analyze_video(video_data, background_tasks: BackgroundTasks):
+def analyze_video(video_data: Video, background_tasks: BackgroundTasks):
     background_tasks.add_task(process_video, video_data.user_id, video_data.video_name)
 
     return "Payload received"
