@@ -22,6 +22,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import ExamsPage from "./Exams";
 import { useClerk } from "@clerk/clerk-react";
 import { motion } from "framer-motion";
+import NoPage from "./NoPage";
 
 export function Dashboard() {
   const { user, isLoaded, isSignedIn} = useUser()
@@ -110,6 +111,7 @@ export function Dashboard() {
             <Route path="videos" element={<VideosPage />}></Route>
             <Route path="settings" element={<SettingsPage />}></Route>
             <Route path="exams" element={<ExamsPage />}></Route>
+            <Route path="*" element={<NoPage />}></Route>
         </Routes>
       </ProtectedRoute>
     </div>
